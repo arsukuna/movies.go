@@ -1,49 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-    <title>Watch It List</title>
-    <style>
-        body { font-family: Arial; background-color: #f4f4f4; margin: 0; }
-        header { background: #222; color: white; padding: 15px; text-align: center; }
-        .search-box { margin: 20px; text-align: center; }
-        input { padding: 10px; width: 300px; }
-        .grid { display: flex; flex-wrap: wrap; justify-content: center; }
-        .card { background: white; margin: 15px; padding: 15px; width: 220px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .card img { width: 100%; border-radius: 5px; }
-        .card h2 { font-size: 18px; margin: 10px 0; }
-    </style>
-    <script>
-        function searchAnime() {
-            let input = document.getElementById("search").value.toLowerCase();
-            let cards = document.getElementsByClassName("card");
-            for (let i = 0; i < cards.length; i++) {
-                let title = cards[i].getElementsByTagName("h2")[0].innerText.toLowerCase();
-                cards[i].style.display = title.includes(input) ? "block" : "none";
-            }
-        }
-    </script>
-</head>
-<body>
-    <header>
-        <h1>Watch It List 🎬</h1>
-        <button>تسجيل الدخول / إنشاء حساب</button>
-    </header>
+  <meta charset="UTF-8">
+  <title>Watch It List</title>
+  <style>
+    /* إعدادات عامة */
+    *{margin:0; padding:0; box-sizing:border-box; font-family:system-ui, Arial;}
+    body{ background:#0b0b0f; color:#fff; }
 
-    <div class="search-box">
-        <input type="text" id="search" onkeyup="searchAnime()" placeholder="ابحث عن أنمي أو فيلم...">
-    </div>
+    /* NAVBAR */
+    .navbar{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 22px; position:sticky; top:0; z-index:10;
+      background:rgba(10,10,15,0.7); backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .logo{ font-size:22px; font-weight:800; color:#e50914; letter-spacing:1px; }
+    .nav-links a{ color:#ddd; margin:0 10px; text-decoration:none; font-size:14px; transition:0.2s; }
+    .nav-links a:hover{ color:#e50914; }
 
-    <h2 style="text-align:center;">قسم الأنمي</h2>
-    <div class="grid">
-        <!-- مثال أول أنمي -->
-        <div class="card">
-            <img src="attack-on-titan.jpg" alt="هجوم العمالقة">
-            <h2>هجوم العمالقة (Attack on Titan)</h2>
-            <p>أنمي شهير تدور أحداثه حول صراع البشرية ضد العمالقة.</p>
-            <a href="https://www.youtube.com/results?search_query=attack+on+titan+trailer">شاهد المقطع الدعائي</a>
-        </div>
-    </div>
-</body>
-</html>
+    /* HERO */
+    .hero{
+      height:65vh; display:flex; align-items:center; padding:30px; position:relative;
+      background:linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.3)),
+      url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4') center/cover;
+    }
+    .hero-content{ max-width:600px; animation:fadeIn 1s ease; }
+    .hero h1{ font-size:44px; margin-bottom:10px; }
+    .hero p{ color:#bbb; margin-bottom:20px; }
 
+    /* قسم الأنمي */
+    .anime{ padding:40px; }
+    .anime h2{ margin-bottom:20px; font-size:26px; color:#e50914; }
 
+    .card{
+      background:rgba(255,255,255,0.05);
+      padding:20px; border-radius:8px; margin-bottom:20px;
+    }
+    .card img.poster{
+      width:100%; border-radius:6px; margin-bottom:15px;
+    }
+    .card h3{ margin-bottom:10px; }
+    .card p{ color:#ccc; line-height:1.6; }
+
+    .trailer-btn{
+      display:inline-block; margin-top:10px; padding:10px 15px;
+      background:#e50914; color:#fff; text-decoration:none;
+      border-radius:4px; transition:0.3s;
+    }
+    .trailer-btn:hover{ background:#b207
