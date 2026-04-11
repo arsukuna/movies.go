@@ -2,43 +2,182 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>اختبار الموقع</title>
+  <title>Watch It List</title>
   <style>
     body {
       background:#0b0b0f;
       color:#fff;
       font-family: Arial, sans-serif;
-      padding:20px;
+      margin:0;
     }
-    h1 {
+
+    /* NAVBAR */
+    .navbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 22px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(10,10,15,0.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .logo {
+      font-size:22px;
+      font-weight:800;
+      color:#e50914;
+      letter-spacing:1px;
+    }
+    .nav-links a {
+      color:#ddd;
+      margin:0 10px;
+      text-decoration:none;
+      font-size:14px;
+      transition:0.2s;
+    }
+    .nav-links a:hover {
+      color:#e50914;
+    }
+
+    /* Landing Page */
+    .landing {
+      text-align:center;
+      padding:60px 20px;
+    }
+    .landing h1 {
+      font-size:32px;
       color:#e50914;
       margin-bottom:20px;
     }
-    p {
-      margin-bottom:15px;
-      line-height:1.6;
+    .buttons a {
+      display:inline-block;
+      margin:10px;
+      padding:12px 20px;
+      background:#e50914;
+      color:#fff;
+      text-decoration:none;
+      border-radius:6px;
+      transition:0.3s;
     }
-    .box {
-      background:rgba(255,255,255,0.1);
-      padding:20px;
+    .buttons a:hover {
+      background:#b20710;
+    }
+    .language {
+      margin-top:20px;
+    }
+    select {
+      padding:8px;
+      border-radius:4px;
+    }
+
+    /* Library */
+    .library {
+      padding:40px 20px;
+      text-align:center;
+    }
+    .library h1 {
+      color:#e50914;
+      margin-bottom:40px;
+    }
+    .sections {
+      display:flex;
+      justify-content:space-around;
+      flex-wrap:wrap;
+    }
+    .section {
+      background:rgba(255,255,255,0.05);
+      padding:30px;
       border-radius:8px;
-      margin-bottom:20px;
+      width:250px;
+      margin:15px;
+      text-align:center;
+      transition:0.3s;
+    }
+    .section:hover {
+      background:rgba(255,255,255,0.15);
+    }
+    .section h2 {
+      margin-bottom:15px;
+      color:#fff;
+    }
+    .section a {
+      display:inline-block;
+      padding:10px 15px;
+      background:#e50914;
+      color:#fff;
+      text-decoration:none;
+      border-radius:4px;
+      transition:0.3s;
+    }
+    .section a:hover {
+      background:#b20710;
+    }
+
+    /* Responsive */
+    @media (max-width:768px) {
+      .sections {
+        flex-direction:column;
+        align-items:center;
+      }
+      .section {
+        width:80%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>مرحبا رُمين</h1>
-  <p>هذا نص تجريبي للتأكد أن الموقع يعمل بشكل صحيح.</p>
-
-  <div class="box">
-    <h2>قسم الأنمي</h2>
-    <p>هنا سيكون محتوى الأنمي لاحقًا. الآن نعرض نص فقط بدون صور.</p>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">Watch It List</div>
+    <div class="nav-links">
+      <a href="#landing">الرئيسية</a>
+      <a href="#anime">أنمي</a>
+      <a href="#movies">أفلام</a>
+      <a href="#series">مسلسلات</a>
+      <a href="#login">تسجيل الدخول</a>
+    </div>
   </div>
 
-  <div class="box">
-    <h2>قسم الأفلام</h2>
-    <p>هنا سيكون محتوى الأفلام لاحقًا. الآن نعرض نص فقط.</p>
+  <!-- Landing Page -->
+  <div class="landing" id="landing">
+    <h1>مرحبًا بك في Watch It List</h1>
+    <div class="buttons">
+      <a href="#" id="login">تسجيل الدخول</a>
+      <a href="#">إنشاء حساب</a>
+    </div>
+    <div class="language">
+      <label for="lang">اختر اللغة:</label>
+      <select id="lang">
+        <option>العربية</option>
+        <option>English</option>
+        <option>Français</option>
+      </select>
+    </div>
+    <div style="margin-top:30px;">
+      <a href="#library" class="buttons">ادخل للمكتبة</a>
+    </div>
+  </div>
+
+  <!-- Library -->
+  <div class="library" id="library">
+    <h1>المكتبة</h1>
+    <div class="sections">
+      <div class="section" id="anime">
+        <h2>قسم الأنمي</h2>
+        <a href="#">ادخل</a>
+      </div>
+      <div class="section" id="movies">
+        <h2>قسم الأفلام</h2>
+        <a href="#">ادخل</a>
+      </div>
+      <div class="section" id="series">
+        <h2>قسم المسلسلات</h2>
+        <a href="#">ادخل</a>
+      </div>
+    </div>
   </div>
 
 </body>
