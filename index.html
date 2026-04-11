@@ -40,29 +40,37 @@
     .nav-links a:hover {
       color:#e50914;
     }
+    .library-btn {
+      display:inline-block;
+      padding:10px 18px;
+      background:#1e90ff; /* أزرق واضح */
+      color:#fff;
+      text-decoration:none;
+      border-radius:6px;
+      font-weight:bold;
+      transition:0.3s;
+      box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    }
+    .library-btn:hover {
+      background:#0066cc;
+    }
 
     /* Landing Page */
     .landing {
       text-align:center;
       padding:60px 20px;
+      background:url('background.jpg') no-repeat center center/cover;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
     }
     .landing h1 {
       font-size:32px;
       color:#e50914;
       margin-bottom:20px;
-    }
-    .buttons a {
-      display:inline-block;
-      margin:10px;
-      padding:12px 20px;
-      background:#e50914;
-      color:#fff;
-      text-decoration:none;
-      border-radius:6px;
-      transition:0.3s;
-    }
-    .buttons a:hover {
-      background:#b20710;
+      text-shadow:0 2px 6px rgba(0,0,0,0.7);
     }
     .language {
       margin-top:20px;
@@ -76,6 +84,7 @@
     .library {
       padding:40px 20px;
       text-align:center;
+      background:#0b0b0f;
     }
     .library h1 {
       color:#e50914;
@@ -137,17 +146,13 @@
       <a href="#anime">أنمي</a>
       <a href="#movies">أفلام</a>
       <a href="#series">مسلسلات</a>
-      <a href="#login">تسجيل الدخول</a>
+      <a href="#library" class="library-btn">ادخل للمكتبة</a>
     </div>
   </div>
 
   <!-- Landing Page -->
   <div class="landing" id="landing">
     <h1>مرحبًا بك في Watch It List</h1>
-    <div class="buttons">
-      <a href="#" id="login">تسجيل الدخول</a>
-      <a href="#">إنشاء حساب</a>
-    </div>
     <div class="language">
       <label for="lang">اختر اللغة:</label>
       <select id="lang">
@@ -155,9 +160,6 @@
         <option>English</option>
         <option>Français</option>
       </select>
-    </div>
-    <div style="margin-top:30px;">
-      <a href="#library" class="buttons">ادخل للمكتبة</a>
     </div>
   </div>
 
