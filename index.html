@@ -22,9 +22,11 @@
     .cards {display:flex;flex-wrap:wrap;justify-content:center;}
     .card {background:rgba(255,255,255,0.05);border-radius:8px;width:300px;margin:15px;padding:20px;text-align:left;transition:0.3s;}
     .card:hover {background:rgba(255,255,255,0.15);}
+    .card img {width:100%;border-radius:6px;margin-bottom:12px;}
     .card h2 {color:#fff;margin-bottom:10px;}
     .card p {font-size:14px;color:#ddd;margin-bottom:10px;}
     .card .rating {font-weight:bold;color:#1e90ff;}
+    .card .genre {font-size:13px;color:#ffcc00;font-weight:bold;margin-bottom:8px;}
     .card a {display:inline-block;margin-top:10px;padding:8px 12px;background:#e50914;color:#fff;text-decoration:none;border-radius:4px;transition:0.3s;}
     .card a:hover {background:#b20710;}
     footer {text-align:center;padding:20px;background:#111;color:#aaa;margin-top:40px;}
@@ -54,50 +56,289 @@
   <div class="library" id="movies">
     <h1>الأفلام</h1>
     <div class="cards">
-      <div class="card"><h2>The Shawshank Redemption</h2><p>قصة رجل يُسجن ظلمًا بتهمة قتل زوجته، ويقضي سنوات طويلة في سجن شاوشانك حيث يكوّن صداقة عميقة مع زميله ريد، ويخطط بصبر للهروب وإثبات براءته.</p><p class="rating">IMDb: 9.3/10</p><a href="https://www.youtube.com/watch?v=6hB3S9bIaco" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Godfather</h2><p>ملحمة عائلة كورليوني في عالم المافيا، حيث يتولى الابن مايكل قيادة العائلة بعد والده، ويغوص في عالم الجريمة والسلطة.</p><p class="rating">IMDb: 9.2/10</p><a href="https://www.youtube.com/watch?v=sY1S34973zA" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Dark Knight</h2><p>باتمان يواجه الجوكر الذي يزرع الفوضى في مدينة جوثام، في صراع بين العدالة والفوضى.</p><p class="rating">IMDb: 9.0/10</p><a href="https://www.youtube.com/watch?v=EXeTwQWrcwY" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Inception</h2><p>قصة لص محترف يدخل عقول الآخرين عبر الأحلام لسرقة الأفكار، لكنه يواجه مهمة أخيرة معقدة.</p><p class="rating">IMDb: 8.8/10</p><a href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Interstellar</h2><p>رحلة مجموعة من رواد الفضاء عبر ثقب دودي لإنقاذ البشرية من الانقراض.</p><p class="rating">IMDb: 8.6/10</p><a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Pulp Fiction</h2><p>حكايات متشابكة عن الجريمة في لوس أنجلوس، مليئة بالعنف والسخرية السوداء.</p><p class="rating">IMDb: 8.9/10</p><a href="https://www.youtube.com/watch?v=s7EdQ4FqbhY" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Fight Club</h2><p>رجل يعاني من الملل يلتقي بشخص غامض ويؤسس نادي قتال سري يغير حياته.</p><p class="rating">IMDb: 8.8/10</p><a href="https://www.youtube.com/watch?v=SUXWAEX2jlg" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Forrest Gump</h2><p>قصة رجل بسيط يعيش أحداثًا تاريخية كبرى في أمريكا، بروح مليئة بالأمل.</p><p class="rating">IMDb: 8.8/10</p><a href="https://www.youtube.com/watch?v=bLvqoHBptjg" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Matrix</h2><p>مغامرة نيون في عالم افتراضي يسيطر عليه الآلات، حيث يكتشف الحقيقة ويصبح المنقذ.</p><p class="rating">IMDb: 8.7/10</p><a href="https://www.youtube.com/watch?v=vKQi3bBA1y8" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Lord of the Rings: Return of the King</h2><p>المعركة النهائية لإنقاذ الأرض الوسطى، حيث يواجه فرودو وسام مهمة تدمير الخاتم.</p><p class="rating">IMDb: 9.0/10</p><a href="https://www.youtube.com/watch?v=r5X-hFf6Bwo" target="_blank">شاهد التريلر</a></div>
+      <!-- مثال كارت مع صورة + التصنيف -->
+      <div class="card">
+        <img src="images/shawshank.jpg" alt="The Shawshank Redemption Poster">
+        <h2>The Shawshank Redemption</h2>
+        <p>قصة رجل يُسجن ظلمًا بتهمة قتل زوجته...</p>
+        <p class="genre">التصنيف: دراما</p>
+        <p class="rating">IMDb: 9.3/10</p>
+        <a href="https://www.youtube.com/watch?v=6hB3S9bIaco" target="_blank">شاهد التريلر</a>
+      </div>
+      <div class="card">
+        <img src="images/godfather.jpg" alt="The Godfather Poster">
+        <h2>The Godfather</h2>
+        <p>ملحمة عائلة كورليوني في عالم المافيا...</p>
+        <p class="genre">التصنيف: جريمة / دراما</p>
+        <p class="rating">IMDb: 9.2/10</p>
+        <a href="https://www.youtube.com/watch?v=sY1S34973zA" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/darkknight.jpg" alt="The Dark Knight Poster">
+        <h2>The Dark Knight</h2>
+        <p>باتمان يواجه الجوكر الذي يزرع الفوضى...</p>
+        <p class="genre">التصنيف: أكشن / جريمة</p>
+        <p class="rating">IMDb: 9.0/10</p>
+        <a href="https://www.youtube.com/watch?v=EXeTwQWrcwY" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/inception.jpg" alt="Inception Poster">
+        <h2>Inception</h2>
+        <p>قصة لص محترف يدخل عقول الآخرين عبر الأحلام...</p>
+        <p class="genre">التصنيف: خيال علمي / أكشن</p>
+        <p class="rating">IMDb: 8.8/10</p>
+        <a href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/interstellar.jpg" alt="Interstellar Poster">
+        <h2>Interstellar</h2>
+        <p>رحلة مجموعة من رواد الفضاء عبر ثقب دودي...</p>
+        <p class="genre">التصنيف: خيال علمي / دراما</p>
+        <p class="rating">IMDb: 8.6/10</p>
+        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/pulpfiction.jpg" alt="Pulp Fiction Poster">
+        <h2>Pulp Fiction</h2>
+        <p>حكايات متشابكة عن الجريمة في لوس أنجلوس...</p>
+        <p class="genre">التصنيف: جريمة / كوميديا سوداء</p>
+        <p class="rating">IMDb: 8.9/10</p>
+        <a href="https://www.youtube.com/watch?v=s7EdQ4FqbhY" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/fightclub.jpg" alt="Fight Club Poster">
+        <h2>Fight Club</h2>
+        <p>رجل يعاني من الملل يلتقي بشخص غامض...</p>
+        <p class="genre">التصنيف: دراما / إثارة</p>
+        <p class="rating">IMDb: 8.8/10</p>
+        <a href="https://www.youtube.com/watch?v=SUXWAEX2jlg" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/forrestgump.jpg" alt="Forrest Gump Poster">
+        <h2>Forrest Gump</h2>
+        <p>قصة رجل بسيط يعيش أحداثًا تاريخية كبرى...</p>
+        <p class="genre">التصنيف: دراما / رومانسي</p>
+        <p class="rating">IMDb: 8.8/10</p>
+        <a href="https://www.youtube.com/watch?v=bLvqoHBptjg" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/matrix.jpg" alt="The Matrix Poster">
+        <h2>The Matrix</h2>
+        <p>مغامرة نيون في عالم افتراضي يسيطر عليه الآلات...</p>
+        <p class="genre">التصنيف: خيال علمي / أكشن</p>
+        <p class="rating">IMDb: 8.7/10</p>
+        <a href="https://www.youtube.com/watch?v=vKQi3bBA1y8" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/lotr.jpg" alt="The Lord of the Rings Poster">
+        <h2>The Lord of the Rings: Return of the King</h2>
+        <p>المعركة النهائية لإنقاذ الأرض الوسطى...</p>
+        <p class="genre">التصنيف: فانتازيا / مغامرة</p>
+        <p class="rating">IMDb: 9.0/10</p>
+        <a href="https://www.youtube.com/watch?v=r5X-hFf6Bwo" target="_blank">شاهد التريلر</a>
+      </div>
     </div>
   </div>
   <!-- Series -->
   <div class="library" id="series">
     <h1>المسلسلات</h1>
     <div class="cards">
-      <div class="card"><h2>Breaking Bad</h2><p>مدرس كيمياء يُصاب بالسرطان فيقرر تصنيع الميثامفيتامين مع شريكه جيسي لتأمين مستقبل عائلته، فيدخل عالم الجريمة المظلم.</p><p class="rating">IMDb: 9.5/10</p><a href="https://www.youtube.com/watch?v=HhesaQXLuRY" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Game of Thrones</h2><p>صراع العروش بين العائلات النبيلة في ويستروس للسيطرة على العرش الحديدي، مليء بالمكائد والمعارك والخيال.</p><p class="rating">IMDb: 8.9/10</p><a href="https://www.youtube.com/watch?v=BpJYNVhGf1s" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Wire</h2><p>مسلسل جريمة واقعي يستعرض حياة الشرطة وتجار المخدرات في مدينة بالتيمور، ويكشف الفساد الاجتماعي والسياسي.</p><p class="rating">IMDb: 9.3/10</p><a href="https://www.youtube.com/watch?v=9qK-VGjMr8g" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Sopranos</h2><p>قصة زعيم مافيا في نيوجيرسي يحاول التوفيق بين حياته العائلية وإدارة أعماله الإجرامية.</p><p class="rating">IMDb: 9.2/10</p><a href="https://www.youtube.com/watch?v=wrN2k3qGbVA" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Friends</h2><p>مجموعة من الأصدقاء يعيشون في نيويورك، يواجهون مواقف كوميدية ورومانسية في حياتهم اليومية.</p><p class="rating">IMDb: 8.9/10</p><a href="https://www.youtube.com/watch?v=hDNNmeeJs1Q" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>The Office</h2><p>كوميديا ساخرة عن حياة موظفي مكتب في شركة ورق، مليئة بالمواقف الطريفة والعلاقات الغريبة.</p><p class="rating">IMDb: 8.9/10</p><a href="https://www.youtube.com/watch?v=Vmb1tqYqyII" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Sherlock</h2><p>نسخة حديثة من مغامرات المحقق الشهير شرلوك هولمز في لندن، مع شريكه الدكتور واتسون.</p><p class="rating">IMDb: 9.1/10</p><a href="https://www.youtube.com/watch?v=xK7S9mrFWL4" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Peaky Blinders</h2><p>عائلة شيلبي تدير عصابة في برمنغهام بعد الحرب العالمية الأولى، بقيادة توماس شيلبي الطموح.</p><p class="rating">IMDb: 8.8/10</p><a href="https://www.youtube.com/watch?v=oVzVdvGIC7U" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Stranger Things</h2><p>مجموعة أطفال يواجهون أحداثًا خارقة للطبيعة في بلدتهم الصغيرة، مع ظهور عالم موازي مظلم.</p><p class="rating">IMDb: 8.7/10</p><a href="https://www.youtube.com/watch?v=b9EkMc79ZSU" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Arcane</h2><p>مستوحى من لعبة League of Legends، يستعرض قصة جينكس وفاي في مدينة بيلتوفر وزون، مليء بالدراما والخيال.</p><p class="rating">IMDb: 9.0/10</p><a href="https://www.youtube.com/watch?v=fXmAurh012s" target="_blank">شاهد التريلر</a></div>
+
+      <div class="card">
+        <img src="images/breakingbad.jpg" alt="Breaking Bad Poster">
+        <h2>Breaking Bad</h2>
+        <p>مدرس كيمياء يُصاب بالسرطان ويقرر تصنيع الميثامفيتامين...</p>
+        <p class="genre">التصنيف: جريمة / دراما</p>
+        <p class="rating">IMDb: 9.5/10</p>
+        <a href="https://www.youtube.com/watch?v=HhesaQXLuRY" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/got.jpg" alt="Game of Thrones Poster">
+        <h2>Game of Thrones</h2>
+        <p>صراع العروش بين العائلات النبيلة في ويستروس...</p>
+        <p class="genre">التصنيف: فانتازيا / دراما</p>
+        <p class="rating">IMDb: 8.9/10</p>
+        <a href="https://www.youtube.com/watch?v=BpJYNVhGf1s" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/thewire.jpg" alt="The Wire Poster">
+        <h2>The Wire</h2>
+        <p>مسلسل جريمة واقعي يستعرض حياة الشرطة وتجار المخدرات...</p>
+        <p class="genre">التصنيف: جريمة / دراما</p>
+        <p class="rating">IMDb: 9.3/10</p>
+        <a href="https://www.youtube.com/watch?v=9qK-VGjMr8g" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/sopranos.jpg" alt="The Sopranos Poster">
+        <h2>The Sopranos</h2>
+        <p>قصة زعيم مافيا في نيوجيرسي يحاول التوفيق بين حياته...</p>
+        <p class="genre">التصنيف: جريمة / دراما</p>
+        <p class="rating">IMDb: 9.2/10</p>
+        <a href="https://www.youtube.com/watch?v=wrN2k3qGbVA" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/friends.jpg" alt="Friends Poster">
+        <h2>Friends</h2>
+        <p>مجموعة من الأصدقاء يعيشون في نيويورك...</p>
+        <p class="genre">التصنيف: كوميديا / رومانسي</p>
+        <p class="rating">IMDb: 8.9/10</p>
+        <a href="https://www.youtube.com/watch?v=hDNNmeeJs1Q" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/theoffice.jpg" alt="The Office Poster">
+        <h2>The Office</h2>
+        <p>كوميديا ساخرة عن حياة موظفي مكتب في شركة ورق...</p>
+        <p class="genre">التصنيف: كوميديا</p>
+        <p class="rating">IMDb: 8.9/10</p>
+        <a href="https://www.youtube.com/watch?v=Vmb1tqYqyII" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/sherlock.jpg" alt="Sherlock Poster">
+        <h2>Sherlock</h2>
+        <p>نسخة حديثة من مغامرات المحقق الشهير شرلوك هولمز...</p>
+        <p class="genre">التصنيف: جريمة / غموض</p>
+        <p class="rating">IMDb: 9.1/10</p>
+        <a href="https://www.youtube.com/watch?v=xK7S9mrFWL4" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/peakyblinders.jpg" alt="Peaky Blinders Poster">
+        <h2>Peaky Blinders</h2>
+        <p>عائلة شيلبي تدير عصابة في برمنغهام بعد الحرب العالمية الأولى...</p>
+        <p class="genre">التصنيف: جريمة / دراما</p>
+        <p class="rating">IMDb: 8.8/10</p>
+        <a href="https://www.youtube.com/watch?v=oVzVdvGIC7U" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/strangerthings.jpg" alt="Stranger Things Poster">
+        <h2>Stranger Things</h2>
+        <p>مجموعة أطفال يواجهون أحداثًا خارقة للطبيعة...</p>
+        <p class="genre">التصنيف: خيال علمي / رعب</p>
+        <p class="rating">IMDb: 8.7/10</p>
+        <a href="https://www.youtube.com/watch?v=b9EkMc79ZSU" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/arcane.jpg" alt="Arcane Poster">
+        <h2>Arcane</h2>
+        <p>مستوحى من لعبة League of Legends...</p>
+        <p class="genre">التصنيف: أنميشن / فانتازيا</p>
+        <p class="rating">IMDb: 9.0/10</p>
+        <a href="https://www.youtube.com/watch?v=fXmAurh012s" target="_blank">شاهد التريلر</a>
+      </div>
+
     </div>
   </div>
-
   <!-- Anime -->
   <div class="library" id="anime">
     <h1>الأنمي</h1>
     <div class="cards">
-      <div class="card"><h2>Fullmetal Alchemist: Brotherhood</h2><p>الأخوان إدوارد وألفونس يستخدمان الكيمياء لاستعادة جسديهما بعد تجربة فاشلة، ويواجهان مؤامرة كبرى تهدد العالم.</p><p class="rating">MAL: 9.1/10</p><a href="https://www.youtube.com/watch?v=5vC6z0x8qFo" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Attack on Titan</h2><p>البشر يعيشون خلف جدران لحمايتهم من العمالقة، وإرين ييغر يقاتل لكشف أسرارهم وإنقاذ البشرية.</p><p class="rating">MAL: 8.9/10</p><a href="https://www.youtube.com/watch?v=MGRm4IzK1SQ" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Death Note</h2><p>طالب يجد دفترًا يمنحه القدرة على قتل أي شخص بكتابة اسمه، ويبدأ صراع مع المحقق العبقري L.</p><p class="rating">MAL: 8.6/10</p><a href="https://www.youtube.com/watch?v=NlJZ-YgAt-c" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Steins;Gate</h2><p>مجموعة أصدقاء يكتشفون طريقة لإرسال رسائل إلى الماضي، مما يغير مسار الزمن ويهدد العالم.</p><p class="rating">MAL: 9.0/10</p><a href="https://www.youtube.com/watch?v=uMYhjVwp0Fc" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Hunter x Hunter</h2><p>غون فريكس يسعى ليصبح صيادًا محترفًا ويبحث عن والده، ويخوض مغامرات مليئة بالتحديات.</p><p class="rating">MAL: 9.0/10</p><a href="https://www.youtube.com/watch?v=d6kBeJjTGnY" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Naruto Shippuden</h2><p>ناروتو يواصل سعيه ليصبح الهوكاجي ويحمي أصدقائه، ويواجه تهديدات أكبر من منظمة الأكاتسكي.</p><p class="rating">MAL: 8.2/10</p><a href="https://www.youtube.com/watch?v=QyYbvVAtlWk" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>One Piece</h2><p>مونكي دي لوفي يسعى ليصبح ملك القراصنة ويجمع طاقمًا قويًا في رحلة مليئة بالمغامرات.</p><p class="rating">MAL: 8.7/10</p><a href="https://www.youtube.com/watch?v=85xI6WI0j2M" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Demon Slayer</h2><p>تانجيرو يقاتل الشياطين بعد أن قُتلت عائلته وتحولت أخته إلى شيطانة، في رحلة لاستعادة إنسانيّتها.</p><p class="rating">MAL: 8.6/10</p><a href="https://www.youtube.com/watch?v=VQGCKyvzIM4" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2>Jujutsu Kaisen</h2><p>إيتادوري يوجي يبتلع إصبع شيطان قوي ويصبح جزءًا من عالم السحر لمواجهة الأرواح الملعونة.</p><p class="rating">MAL: 8.6/10</p><a href="https://www.youtube.com/watch?v=pkKu9hLT-t8" target="_blank">شاهد التريلر</a></div>
-      <div class="card"><h2           
-        <div class="card"><h2>Sousou no Frieren</h2><p>بعد هزيمة ملك الشياطين، تبدأ الساحرة فرييرين رحلة طويلة لاستكشاف معنى الحياة والذكريات، حيث تواجه مرور الزمن وفقدان أصدقائها البشر.</p><p class="rating">MAL: 9.2/10</p><a href="https://www.youtube.com/watch?v=5c5Q3Y9rF6U" target="_blank">شاهد التريلر</a></div>
+
+      <div class="card">
+        <img src="images/fma.jpg" alt="Fullmetal Alchemist Poster">
+        <h2>Fullmetal Alchemist: Brotherhood</h2>
+        <p>الأخوان إدوارد وألفونس يستخدمان الكيمياء لاستعادة جسديهما...</p>
+        <p class="genre">التصنيف: أكشن / فانتازيا</p>
+        <p class="rating">MAL: 9.1/10</p>
+        <a href="https://www.youtube.com/watch?v=5vC6z0x8qFo" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/aot.jpg" alt="Attack on Titan Poster">
+        <h2>Attack on Titan</h2>
+        <p>البشر يعيشون خلف جدران لحمايتهم من العمالقة...</p>
+        <p class="genre">التصنيف: أكشن / رعب</p>
+        <p class="rating">MAL: 8.9/10</p>
+        <a href="https://www.youtube.com/watch?v=MGRm4IzK1SQ" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/deathnote.jpg" alt="Death Note Poster">
+        <h2>Death Note</h2>
+        <p>طالب يجد دفترًا يمنحه القدرة على قتل أي شخص...</p>
+        <p class="genre">التصنيف: غموض / إثارة</p>
+        <p class="rating">MAL: 8.6/10</p>
+        <a href="https://www.youtube.com/watch?v=NlJZ-YgAt-c" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/steinsgate.jpg" alt="Steins Gate Poster">
+        <h2>Steins;Gate</h2>
+        <p>مجموعة أصدقاء يكتشفون طريقة لإرسال رسائل إلى الماضي...</p>
+        <p class="genre">التصنيف: خيال علمي / دراما</p>
+        <p class="rating">MAL: 9.0/10</p>
+        <a href="https://www.youtube.com/watch?v=uMYhjVwp0Fc" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/hxh.jpg" alt="Hunter x Hunter Poster">
+        <h2>Hunter x Hunter</h2>
+        <p>غون فريكس يسعى ليصبح صيادًا محترفًا...</p>
+        <p class="genre">التصنيف: أكشن / مغامرة</p>
+        <p class="rating">MAL: 9.0/10</p>
+        <a href="https://www.youtube.com/watch?v=d6kBeJjTGnY" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/naruto.jpg" alt="Naruto Shippuden Poster">
+        <h2>Naruto Shippuden</h2>
+        <p>ناروتو يواصل سعيه ليصبح الهوكاجي ويحمي أصدقائه...</p>
+        <p class="genre">التصنيف: أكشن / فانتازيا</p>
+        <p class="rating">MAL: 8.2/10</p>
+        <a href="https://www.youtube.com/watch?v=QyYbvVAtlWk" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/onepiece.jpg" alt="One Piece Poster">
+        <h2>One Piece</h2>
+        <p>مونكي دي لوفي يسعى ليصبح ملك القراصنة...</p>
+        <p class="genre">التصنيف: أكشن / مغامرة</p>
+        <p class="rating">MAL: 8.7/10</p>
+        <a href="https://www.youtube.com/watch?v=85xI6WI0j2M" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/demonslayer.jpg" alt="Demon Slayer Poster">
+        <h2>Demon Slayer</h2>
+        <p>تانجيرو يقاتل الشياطين بعد أن قُتلت عائلته...</p>
+        <p class="genre">التصنيف: أكشن / فانتازيا</p>
+        <p class="rating">MAL: 8.6/10</p>
+        <a href="https://www.youtube.com/watch?v=VQGCKyvzIM4" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/jujutsu.jpg" alt="Jujutsu Kaisen Poster">
+        <h2>Jujutsu Kaisen</h2>
+        <p>إيتادوري يوجي يبتلع إصبع شيطان قوي...</p>
+        <p class="genre">التصنيف: أكشن / خيال</p>
+        <p class="rating">MAL: 8.6/10</p>
+        <a href="https://www.youtube.com/watch?v=pkKu9hLT-t8" target="_blank">شاهد التريلر</a>
+      </div>
+
+      <div class="card">
+        <img src="images/frieren.jpg" alt="Sousou no Frieren Poster">
+        <h2>Sousou no Frieren</h2>
+        <p>بعد هزيمة ملك الشياطين، تبدأ الساحرة فرييرين رحلة طويلة...</p>
+        <p class="genre">التصنيف: فانتازيا / دراما</p>
+        <p class="rating">MAL: 9.2/10</p>
+        <a href="https://www.youtube.com/watch?v=5c5Q3Y9rF6U" target="_blank">شاهد التريلر</a>
+      </div>
+
     </div>
   </div>
 
