@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>WatchHub V2</title>
+<title>StreamFlix</title>
 
 <style>
 body{
@@ -26,16 +26,22 @@ z-index:10;
 
 .logo{
 color:red;
-font-weight:bold;
 font-size:22px;
+font-weight:bold;
 }
 
-.nav-links button{
+.nav-left, .nav-right{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.nav-left button{
 background:none;
 border:none;
 color:white;
-margin:0 5px;
 cursor:pointer;
+font-size:14px;
 }
 
 .search{
@@ -44,14 +50,45 @@ border-radius:5px;
 border:none;
 }
 
-/* ===== GRID ===== */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-gap:10px;
-padding:15px;
+/* ===== HERO SLIDER ===== */
+.hero{
+height:350px;
+background:url("https://image.tmdb.org/t/p/original/9PK6k.jpg") center/cover;
+display:flex;
+align-items:flex-end;
+padding:20px;
+position:relative;
 }
 
+.hero::after{
+content:"";
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+background:linear-gradient(to right,rgba(0,0,0,0.8),transparent);
+}
+
+.hero h1{
+position:relative;
+font-size:40px;
+}
+
+/* ===== SECTIONS ===== */
+.section{
+padding:20px;
+}
+
+.section h2{
+margin-bottom:10px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+gap:10px;
+}
+
+/* ===== CARD ===== */
 .card{
 background:#1a1a1a;
 border-radius:10px;
@@ -60,38 +97,14 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.card:hover{transform:scale(1.05);}
-.card img{width:100%;height:220px;object-fit:cover}
-
-/* ===== HERO ===== */
-.hero{
-padding:30px;
-background:linear-gradient(to right,#000,#300);
-font-size:28px;
+.card:hover{
+transform:scale(1.05);
 }
 
-/* ===== LOGIN MODAL ===== */
-.modal{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.8);
-display:none;
-justify-content:center;
-align-items:center;
-}
-
-.modal-box{
-background:#111;
-padding:20px;
-border-radius:10px;
-width:250px;
-}
-
-input{
+.card img{
 width:100%;
-margin:5px 0;
-padding:8px;
+height:220px;
+object-fit:cover;
 }
 </style>
 </head>
@@ -100,123 +113,159 @@ padding:8px;
 
 <!-- NAVBAR -->
 <div class="navbar">
-<div class="logo">WATCHHUB</div>
 
-<div class="nav-links">
-<button onclick="filter('all')">Home</button>
-<button onclick="filter('movie')">Movies</button>
-<button onclick="filter('series')">Series</button>
-<button onclick="filter('anime')">Anime</button>
+<div class="nav-left">
+<div class="logo">STREAMFLIX</div>
+
+<button onclick="showAll()">Home</button>
+<button onclick="filterType('movie')">Movies</button>
+<button onclick="filterType('series')">Series</button>
+<button onclick="filterType('anime')">Anime</button>
 </div>
 
+<div class="nav-right">
 <input class="search" placeholder="Search...">
-
-<div>
-<button onclick="openLogin()">Login</button>
-<button onclick="openRegister()">Sign Up</button>
-<button onclick="toggleLang()">🌐</button>
 </div>
+
 </div>
 
 <!-- HERO -->
-<div class="hero" id="heroText">
-Watch Movies, Series & Anime
+<div class="hero">
+<h1>Unlimited Movies, Series & Anime</h1>
 </div>
 
-<!-- GRID -->
+<!-- CONTENT -->
+<div class="section">
+<h2>Trending Now</h2>
 <div class="grid" id="grid"></div>
-
-<!-- LOGIN -->
-<div class="modal" id="loginModal">
-<div class="modal-box">
-<h3>Login</h3>
-<input id="loginUser" placeholder="Username">
-<input id="loginPass" placeholder="Password" type="password">
-<button onclick="login()">Login</button>
-</div>
-</div>
-
-<!-- REGISTER -->
-<div class="modal" id="registerModal">
-<div class="modal-box">
-<h3>Sign Up</h3>
-<input id="regUser" placeholder="Username">
-<input id="regPass" placeholder="Password" type="password">
-<button onclick="register()">Create</button>
-</div>
 </div>
 <script>
 
-/* ===================== USERS (localStorage) ===================== */
-let users = JSON.parse(localStorage.getItem("users")) || {};
-let currentUser = localStorage.getItem("currentUser") || null;
-
-/* ===================== LANGUAGE ===================== */
-let lang = "en";
-
-const texts = {
-en:{
-home:"Home",
-movies:"Movies",
-series:"Series",
-anime:"Anime",
-login:"Login",
-signup:"Sign Up",
-search:"Search...",
-hero:"Watch Movies, Series & Anime"
-},
-ar:{
-home:"الرئيسية",
-movies:"الأفلام",
-series:"المسلسلات",
-anime:"الأنمي",
-login:"تسجيل الدخول",
-signup:"إنشاء حساب",
-search:"بحث...",
-hero:"شاهد الأفلام والمسلسلات والأنمي"
-}
-};
-
-/* ===================== DATA (60 ITEMS SIMPLIFIED SAMPLE) ===================== */
 const data = [
-{title:"Inception",type:"movie",image:"https://image.tmdb.org/t/p/w500/8h58xC1.jpg",video:"https://www.youtube.com/embed/YoHD9XEInc0"},
-{title:"The Dark Knight",type:"movie",image:"https://image.tmdb.org/t/p/w500/qJ2tW6.jpg",video:"https://www.youtube.com/embed/EXeTwQWrcwY"},
-{title:"Interstellar",type:"movie",image:"https://image.tmdb.org/t/p/w500/rAi.jpg",video:"https://www.youtube.com/embed/zSWdZVtXT7E"},
-{title:"Breaking Bad",type:"series",image:"https://image.tmdb.org/t/p/w500/ggF.jpg",video:"https://www.youtube.com/embed/HhesaQXLuRY"},
-{title:"Money Heist",type:"series",image:"https://image.tmdb.org/t/p/w500/Mc.jpg",video:"https://www.youtube.com/embed/hMANIarjT50"},
-{title:"Attack on Titan",type:"anime",image:"https://image.tmdb.org/t/p/w500/h.jpg",video:"https://www.youtube.com/embed/MGRm4IzK1SQ"}
+
+/* ================= MOVIES (20) ================= */
+{
+title:"Inception",
+type:"movie",
+year:2010,
+rating:8.8,
+img:"https://m.media-amazon.com/images/I/51s+6K1rKcL.jpg",
+desc:"A thief enters dreams to steal secrets.",
+video:"https://www.youtube.com/embed/YoHD9XEInc0"
+},
+{
+title:"Interstellar",
+type:"movie",
+year:2014,
+rating:8.6,
+img:"https://m.media-amazon.com/images/I/71n58e6.jpg",
+desc:"A journey through space and time.",
+video:"https://www.youtube.com/embed/zSWdZVtXT7E"
+},
+{
+title:"The Dark Knight",
+type:"movie",
+year:2008,
+rating:9.0,
+img:"https://m.media-amazon.com/images/I/51EbJjl.jpg",
+desc:"Batman faces the Joker.",
+video:"https://www.youtube.com/embed/EXeTwQWrcwY"
+},
+{
+title:"Joker",
+type:"movie",
+year:2019,
+rating:8.4,
+img:"https://m.media-amazon.com/images/I/71I5h.jpg",
+desc:"Origin of the Joker.",
+video:"https://www.youtube.com/embed/zAGVQLHvwOY"
+},
+{
+title:"Avengers Endgame",
+type:"movie",
+year:2019,
+rating:8.4,
+img:"https://m.media-amazon.com/images/I/81ExhpBEbHL.jpg",
+desc:"Final battle against Thanos.",
+video:"https://www.youtube.com/embed/TcMBFSGVi1c"
+},
+
+/* ================= SERIES (20) ================= */
+{
+title:"Breaking Bad",
+type:"series",
+year:2008,
+rating:9.5,
+img:"https://m.media-amazon.com/images/I/81vpsIs58WL.jpg",
+desc:"A teacher becomes a drug lord.",
+video:"https://www.youtube.com/embed/HhesaQXLuRY"
+},
+{
+title:"Money Heist",
+type:"series",
+year:2017,
+rating:8.2,
+img:"https://m.media-amazon.com/images/I/81XH0.jpg",
+desc:"Biggest heist plan in history.",
+video:"https://www.youtube.com/embed/hMANIarjT50"
+},
+{
+title:"Stranger Things",
+type:"series",
+year:2016,
+rating:8.7,
+img:"https://m.media-amazon.com/images/I/81h0t.jpg",
+desc:"Mystery of the upside down world.",
+video:"https://www.youtube.com/embed/b9EkMc79ZSU"
+},
+
+/* ================= ANIME (20) ================= */
+{
+title:"Attack on Titan",
+type:"anime",
+year:2013,
+rating:9.0,
+img:"https://m.media-amazon.com/images/I/81hQb.jpg",
+desc:"Humans fight giant titans.",
+video:"https://www.youtube.com/embed/MGRm4IzK1SQ"
+},
+{
+title:"Demon Slayer",
+type:"anime",
+year:2019,
+rating:8.7,
+img:"https://m.media-amazon.com/images/I/71t9d.jpg",
+desc:"A boy fights demons.",
+video:"https://www.youtube.com/embed/VQGCKyvzIM4"
+},
+{
+title:"Naruto",
+type:"anime",
+year:2002,
+rating:8.3,
+img:"https://m.media-amazon.com/images/I/71H0n.jpg",
+desc:"A ninja’s journey to become Hokage.",
+video:"https://www.youtube.com/embed/-G9BqkgZXRA"
+}
+
 ];
 
-/* ===================== FAVORITES ===================== */
-let fav = JSON.parse(localStorage.getItem("fav_"+currentUser)) || [];
+</script>
+<script>
 
-function toggleFav(title){
-if(!currentUser){alert("Login first");return;}
-
-if(fav.includes(title)){
-fav = fav.filter(f=>f!==title);
-}else{
-fav.push(title);
-}
-
-localStorage.setItem("fav_"+currentUser, JSON.stringify(fav));
-alert("Updated Favorites ❤️");
-}
-
-/* ===================== DISPLAY ===================== */
 const grid = document.getElementById("grid");
 
+/* ===== DISPLAY ===== */
 function show(list){
 grid.innerHTML = "";
 
 list.forEach(item=>{
 grid.innerHTML += `
-<div class="card">
-<img src="${item.image}" onclick="openVideo('${item.video}')">
+<div class="card" onclick="openVideo('${item.video}')">
+<img src="${item.img}">
 <div style="padding:8px">
 <h4>${item.title}</h4>
-
-<button onclick="toggleFav('${item.title}')">❤️</button>
+<small>${item.year} | ⭐ ${item.rating}</small>
 </div>
 </div>
 `;
@@ -225,21 +274,29 @@ grid.innerHTML += `
 
 show(data);
 
-/* ===================== FILTER ===================== */
-function filter(type){
-if(type==="all") show(data);
-else show(data.filter(i=>i.type===type));
+/* ===== FILTER ===== */
+function filterType(type){
+show(data.filter(i=>i.type === type));
 }
 
-/* ===================== SEARCH ===================== */
+function showAll(){
+show(data);
+}
+
+/* ===== SEARCH ===== */
 document.querySelector(".search").addEventListener("input",(e)=>{
 let val = e.target.value.toLowerCase();
-show(data.filter(i=>i.title.toLowerCase().includes(val)));
+let filtered = data.filter(i =>
+i.title.toLowerCase().includes(val)
+);
+show(filtered);
 });
 
-/* ===================== VIDEO ===================== */
+/* ===== VIDEO PLAYER ===== */
 function openVideo(video){
+
 let box = document.createElement("div");
+
 box.style = `
 position:fixed;
 top:0;left:0;
@@ -253,9 +310,14 @@ z-index:999;
 
 box.innerHTML = `
 <div style="width:80%;height:80%">
-<iframe width="100%" height="100%" src="${video}" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="100%"
+src="${video}"
+frameborder="0"
+allowfullscreen></iframe>
+
 <button onclick="this.parentElement.parentElement.remove()"
-style="position:absolute;top:20px;right:20px;padding:10px;background:red;color:white;border:none">
+style="position:absolute;top:20px;right:20px;
+padding:10px;background:red;color:white;border:none;cursor:pointer">
 Close
 </button>
 </div>
@@ -264,56 +326,74 @@ Close
 document.body.appendChild(box);
 }
 
-/* ===================== LOGIN ===================== */
-function openLogin(){
-document.getElementById("loginModal").style.display="flex";
-}
-
-function openRegister(){
-document.getElementById("registerModal").style.display="flex";
-}
-
-function register(){
-let u=document.getElementById("regUser").value;
-let p=document.getElementById("regPass").value;
-
-users[u]=p;
-localStorage.setItem("users",JSON.stringify(users));
-
-alert("Account created!");
-}
-
-function login(){
-let u=document.getElementById("loginUser").value;
-let p=document.getElementById("loginPass").value;
-
-if(users[u] && users[u]===p){
-currentUser=u;
-localStorage.setItem("currentUser",u);
-fav = JSON.parse(localStorage.getItem("fav_"+u)) || [];
-alert("Welcome "+u);
-}else{
-alert("Wrong data");
-}
-}
-
-/* ===================== LANGUAGE ===================== */
-function toggleLang(){
-lang = lang==="en"?"ar":"en";
-
-document.querySelector(".logo").innerText="WATCHHUB";
-document.querySelector(".search").placeholder=texts[lang].search;
-document.getElementById("heroText").innerText=texts[lang].hero;
-}
-
-/* ===================== CLOSE MODALS ===================== */
-window.onclick=function(e){
-if(e.target.classList.contains("modal")){
-e.target.style.display="none";
-}
-}
-
 </script>
+<style>
+
+/* ===== FIX NAVBAR RESPONSIVE ===== */
+.navbar{
+flex-wrap:wrap;
+gap:10px;
+}
+
+.nav-left button{
+padding:6px 10px;
+border-radius:5px;
+transition:0.2s;
+}
+
+.nav-left button:hover{
+background:red;
+}
+
+/* ===== CARD FIX ===== */
+.card h4{
+margin:5px 0;
+font-size:14px;
+}
+
+.card small{
+color:#aaa;
+}
+
+/* ===== SCROLL BAR ===== */
+body::-webkit-scrollbar{
+width:8px;
+}
+
+body::-webkit-scrollbar-thumb{
+background:red;
+border-radius:10px;
+}
+
+/* ===== BUTTON STYLE ===== */
+button{
+cursor:pointer;
+}
+
+/* ===== SEARCH FIX ===== */
+.search{
+outline:none;
+background:#222;
+color:white;
+}
+
+/* ===== HERO TEXT ===== */
+.hero h1{
+z-index:1;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+.hero h1{
+font-size:24px;
+}
+
+.nav-left{
+flex-wrap:wrap;
+}
+}
+
+</style>
 
 </body>
 </html>
