@@ -2,281 +2,318 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Watch It</title>
+<title>WatchHub V2</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #0f0f0f;
-    color: white;
+body{
+margin:0;
+font-family:Arial;
+background:#0b0b0b;
+color:white;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    background: #111;
+/* ===== NAVBAR ===== */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 20px;
+background:#111;
+position:sticky;
+top:0;
+z-index:10;
 }
 
-.logo {
-    font-size: 24px;
-    color: red;
-    font-weight: bold;
+.logo{
+color:red;
+font-weight:bold;
+font-size:22px;
 }
 
-.search {
-    padding: 8px;
-    width: 200px;
+.nav-links button{
+background:none;
+border:none;
+color:white;
+margin:0 5px;
+cursor:pointer;
 }
 
-.container {
-    padding: 20px;
+.search{
+padding:6px;
+border-radius:5px;
+border:none;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
+/* ===== GRID ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+gap:10px;
+padding:15px;
 }
 
-.card {
-    background: #1a1a1a;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: 0.3s;
+.card{
+background:#1a1a1a;
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
+transition:0.3s;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.card:hover{transform:scale(1.05);}
+.card img{width:100%;height:220px;object-fit:cover}
+
+/* ===== HERO ===== */
+.hero{
+padding:30px;
+background:linear-gradient(to right,#000,#300);
+font-size:28px;
 }
 
-.card img {
-    width: 100%;
+/* ===== LOGIN MODAL ===== */
+.modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
 }
 
-.card h3 {
-    font-size: 14px;
-    padding: 10px;
+.modal-box{
+background:#111;
+padding:20px;
+border-radius:10px;
+width:250px;
+}
+
+input{
+width:100%;
+margin:5px 0;
+padding:8px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">WATCH.IT</div>
-    <input type="text" class="search" placeholder="Search...">
-</header>
+<!-- NAVBAR -->
+<div class="navbar">
+<div class="logo">WATCHHUB</div>
 
-<div class="container">
-    <div class="grid" id="movies"></div>
+<div class="nav-links">
+<button onclick="filter('all')">Home</button>
+<button onclick="filter('movie')">Movies</button>
+<button onclick="filter('series')">Series</button>
+<button onclick="filter('anime')">Anime</button>
+</div>
+
+<input class="search" placeholder="Search...">
+
+<div>
+<button onclick="openLogin()">Login</button>
+<button onclick="openRegister()">Sign Up</button>
+<button onclick="toggleLang()">🌐</button>
+</div>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="heroText">
+Watch Movies, Series & Anime
+</div>
+
+<!-- GRID -->
+<div class="grid" id="grid"></div>
+
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+<div class="modal-box">
+<h3>Login</h3>
+<input id="loginUser" placeholder="Username">
+<input id="loginPass" placeholder="Password" type="password">
+<button onclick="login()">Login</button>
+</div>
+</div>
+
+<!-- REGISTER -->
+<div class="modal" id="registerModal">
+<div class="modal-box">
+<h3>Sign Up</h3>
+<input id="regUser" placeholder="Username">
+<input id="regPass" placeholder="Password" type="password">
+<button onclick="register()">Create</button>
+</div>
 </div>
 <script>
-const movies = [
-    {
-        title: "Avengers Endgame",
-        category: "movie",
-        image: "https://i.imgur.com/3JwZQ.jpg",
-        video: "https://www.youtube.com/embed/TcMBFSGVi1c"
-    },
-    {
-        title: "Breaking Bad",
-        category: "series",
-        image: "https://i.imgur.com/1bX5QH6.jpg",
-        video: "https://www.youtube.com/embed/HhesaQXLuRY"
-    },
-    {
-        title: "Attack on Titan",
-        category: "anime",
-        image: "https://i.imgur.com/z7J9E.jpg",
-        video: "https://www.youtube.com/embed/MGRm4IzK1SQ"
-    },
-    {
-        title: "Joker",
-        category: "movie",
-        image: "https://i.imgur.com/6X4F7.jpg",
-        video: "https://www.youtube.com/embed/zAGVQLHvwOY"
-    },
-    {
-        title: "Money Heist",
-        category: "series",
-        image: "https://i.imgur.com/9gkds.jpg",
-        video: "https://www.youtube.com/embed/hMANIarjT50"
-    },
-    {
-        title: "Demon Slayer",
-        category: "anime",
-        image: "https://i.imgur.com/xv3Rk.jpg",
-        video: "https://www.youtube.com/embed/VQGCKyvzIM4"
-    }
+
+/* ===================== USERS (localStorage) ===================== */
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let currentUser = localStorage.getItem("currentUser") || null;
+
+/* ===================== LANGUAGE ===================== */
+let lang = "en";
+
+const texts = {
+en:{
+home:"Home",
+movies:"Movies",
+series:"Series",
+anime:"Anime",
+login:"Login",
+signup:"Sign Up",
+search:"Search...",
+hero:"Watch Movies, Series & Anime"
+},
+ar:{
+home:"الرئيسية",
+movies:"الأفلام",
+series:"المسلسلات",
+anime:"الأنمي",
+login:"تسجيل الدخول",
+signup:"إنشاء حساب",
+search:"بحث...",
+hero:"شاهد الأفلام والمسلسلات والأنمي"
+}
+};
+
+/* ===================== DATA (60 ITEMS SIMPLIFIED SAMPLE) ===================== */
+const data = [
+{title:"Inception",type:"movie",image:"https://image.tmdb.org/t/p/w500/8h58xC1.jpg",video:"https://www.youtube.com/embed/YoHD9XEInc0"},
+{title:"The Dark Knight",type:"movie",image:"https://image.tmdb.org/t/p/w500/qJ2tW6.jpg",video:"https://www.youtube.com/embed/EXeTwQWrcwY"},
+{title:"Interstellar",type:"movie",image:"https://image.tmdb.org/t/p/w500/rAi.jpg",video:"https://www.youtube.com/embed/zSWdZVtXT7E"},
+{title:"Breaking Bad",type:"series",image:"https://image.tmdb.org/t/p/w500/ggF.jpg",video:"https://www.youtube.com/embed/HhesaQXLuRY"},
+{title:"Money Heist",type:"series",image:"https://image.tmdb.org/t/p/w500/Mc.jpg",video:"https://www.youtube.com/embed/hMANIarjT50"},
+{title:"Attack on Titan",type:"anime",image:"https://image.tmdb.org/t/p/w500/h.jpg",video:"https://www.youtube.com/embed/MGRm4IzK1SQ"}
 ];
-</script>
-<script>
-const container = document.getElementById("movies");
 
-function displayMovies(list) {
-    container.innerHTML = "";
-    list.forEach(movie => {
-        container.innerHTML += `
-            <div class="card" onclick="openPlayer('${movie.video}')">
-                <img src="${movie.image}">
-                <h3>${movie.title}</h3>
-            </div>
-        `;
-    });
+/* ===================== FAVORITES ===================== */
+let fav = JSON.parse(localStorage.getItem("fav_"+currentUser)) || [];
+
+function toggleFav(title){
+if(!currentUser){alert("Login first");return;}
+
+if(fav.includes(title)){
+fav = fav.filter(f=>f!==title);
+}else{
+fav.push(title);
 }
 
-displayMovies(movies);
-
-function openPlayer(video) {
-    document.getElementById("player").style.display = "flex";
-    document.getElementById("videoFrame").src = video;
+localStorage.setItem("fav_"+currentUser, JSON.stringify(fav));
+alert("Updated Favorites ❤️");
 }
 
-function closePlayer() {
-    document.getElementById("player").style.display = "none";
-    document.getElementById("videoFrame").src = "";
-}
-</script>
+/* ===================== DISPLAY ===================== */
+const grid = document.getElementById("grid");
 
-<!-- Popup Player -->
-<div id="player" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-justify-content:center;
-align-items:center;
-z-index:1000;
-">
+function show(list){
+grid.innerHTML = "";
 
-    <div style="position:relative; width:80%; height:80%;">
-        <span onclick="closePlayer()" style="
-        position:absolute;
-        top:-30px;
-        right:0;
-        font-size:30px;
-        cursor:pointer;">✖</span>
+list.forEach(item=>{
+grid.innerHTML += `
+<div class="card">
+<img src="${item.image}" onclick="openVideo('${item.video}')">
+<div style="padding:8px">
+<h4>${item.title}</h4>
 
-        <iframe id="videoFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-    </div>
-
+<button onclick="toggleFav('${item.title}')">❤️</button>
 </div>
-<style>
-.filters {
-    margin: 15px;
-}
-
-.filters button {
-    margin-right: 10px;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    background: red;
-    color: white;
-    border-radius: 5px;
-}
-</style>
-
-<div class="filters">
-    <button onclick="filterMovies('all')">All</button>
-    <button onclick="filterMovies('movie')">Movies</button>
-    <button onclick="filterMovies('series')">Series</button>
-    <button onclick="filterMovies('anime')">Anime</button>
 </div>
+`;
+});
+}
 
-<script>
-// البحث
-document.querySelector(".search").addEventListener("input", function(e) {
-    const value = e.target.value.toLowerCase();
-    const filtered = movies.filter(m =>
-        m.title.toLowerCase().includes(value)
-    );
-    displayMovies(filtered);
+show(data);
+
+/* ===================== FILTER ===================== */
+function filter(type){
+if(type==="all") show(data);
+else show(data.filter(i=>i.type===type));
+}
+
+/* ===================== SEARCH ===================== */
+document.querySelector(".search").addEventListener("input",(e)=>{
+let val = e.target.value.toLowerCase();
+show(data.filter(i=>i.title.toLowerCase().includes(val)));
 });
 
-// الفلترة
-function filterMovies(type) {
-    if (type === "all") {
-        displayMovies(movies);
-    } else {
-        const filtered = movies.filter(m => m.category === type);
-        displayMovies(filtered);
-    }
-}
-</script>
-<script>
-// ===== FAVORITES =====
-let favorites = JSON.parse(localStorage.getItem("fav")) || [];
-
-function toggleFav(title) {
-    if (favorites.includes(title)) {
-        favorites = favorites.filter(f => f !== title);
-    } else {
-        favorites.push(title);
-    }
-    localStorage.setItem("fav", JSON.stringify(favorites));
-    alert("Updated Favorites ❤️");
-}
-
-// ===== RATING SYSTEM =====
-function rateMovie(name) {
-    let rate = prompt("Rate from 1 to 5 ⭐");
-    if (rate >= 1 && rate <= 5) {
-        alert(name + " rated " + rate + "⭐");
-    }
-}
-
-// تعديل العرض لإضافة أزرار
-function displayMovies(list) {
-    container.innerHTML = "";
-    list.forEach(movie => {
-        container.innerHTML += `
-            <div class="card">
-                <img src="${movie.image}" onclick="openPlayer('${movie.video}')">
-                <h3>${movie.title}</h3>
-                
-                <button onclick="toggleFav('${movie.title}')">❤️</button>
-                <button onclick="rateMovie('${movie.title}')">⭐</button>
-            </div>
-        `;
-    });
-}
-
-// ===== DARK MODE =====
-let dark = true;
-
-function toggleMode() {
-    if (dark) {
-        document.body.style.background = "#fff";
-        document.body.style.color = "#000";
-        dark = false;
-    } else {
-        document.body.style.background = "#0f0f0f";
-        document.body.style.color = "#fff";
-        dark = true;
-    }
-}
-</script>
-
-<button onclick="toggleMode()" style="
+/* ===================== VIDEO ===================== */
+function openVideo(video){
+let box = document.createElement("div");
+box.style = `
 position:fixed;
-bottom:20px;
-right:20px;
-padding:10px;
-border:none;
-background:red;
-color:white;
-border-radius:50%;
-cursor:pointer;
-">
-🌙
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.9);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999;
+`;
+
+box.innerHTML = `
+<div style="width:80%;height:80%">
+<iframe width="100%" height="100%" src="${video}" frameborder="0" allowfullscreen></iframe>
+<button onclick="this.parentElement.parentElement.remove()"
+style="position:absolute;top:20px;right:20px;padding:10px;background:red;color:white;border:none">
+Close
 </button>
+</div>
+`;
+
+document.body.appendChild(box);
+}
+
+/* ===================== LOGIN ===================== */
+function openLogin(){
+document.getElementById("loginModal").style.display="flex";
+}
+
+function openRegister(){
+document.getElementById("registerModal").style.display="flex";
+}
+
+function register(){
+let u=document.getElementById("regUser").value;
+let p=document.getElementById("regPass").value;
+
+users[u]=p;
+localStorage.setItem("users",JSON.stringify(users));
+
+alert("Account created!");
+}
+
+function login(){
+let u=document.getElementById("loginUser").value;
+let p=document.getElementById("loginPass").value;
+
+if(users[u] && users[u]===p){
+currentUser=u;
+localStorage.setItem("currentUser",u);
+fav = JSON.parse(localStorage.getItem("fav_"+u)) || [];
+alert("Welcome "+u);
+}else{
+alert("Wrong data");
+}
+}
+
+/* ===================== LANGUAGE ===================== */
+function toggleLang(){
+lang = lang==="en"?"ar":"en";
+
+document.querySelector(".logo").innerText="WATCHHUB";
+document.querySelector(".search").placeholder=texts[lang].search;
+document.getElementById("heroText").innerText=texts[lang].hero;
+}
+
+/* ===================== CLOSE MODALS ===================== */
+window.onclick=function(e){
+if(e.target.classList.contains("modal")){
+e.target.style.display="none";
+}
+}
+
+</script>
 
 </body>
 </html>
