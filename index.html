@@ -1,351 +1,282 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Watch It List</title>
-  <style>
-    body {background:#0b0b0f;color:#fff;font-family:Arial,sans-serif;margin:0;}
-    .navbar {display:flex;justify-content:space-between;align-items:center;padding:14px 22px;position:sticky;top:0;z-index:10;background:rgba(10,10,15,0.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);}
-    .logo {font-size:22px;font-weight:800;color:#e50914;letter-spacing:1px;}
-    .nav-links {display:flex;align-items:center;}
-    .nav-links a,.nav-links select {color:#ddd;margin:0 10px;text-decoration:none;font-size:14px;transition:0.2s;}
-    .nav-links a:hover {color:#e50914;}
-    .library-btn {display:inline-block;padding:10px 18px;background:#1e90ff;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;transition:0.3s;box-shadow:0 4px 10px rgba(0,0,0,0.4);}
-    .library-btn:hover {background:#0066cc;}
-    .dropdown {position:relative;display:inline-block;}
-    .dropdown-content {display:none;position:absolute;background:#222;min-width:140px;box-shadow:0 4px 8px rgba(0,0,0,0.3);border-radius:6px;z-index:20;}
-    .dropdown-content a {color:#fff;padding:10px;text-decoration:none;display:block;transition:0.2s;}
-    .dropdown-content a:hover {background:#e50914;}
-    .dropdown:hover .dropdown-content {display:block;}
-    .library {padding:40px 20px;text-align:center;background:#0b0b0f;}
-    .library h1 {color:#e50914;margin-bottom:40px;}
-    .cards {display:flex;flex-wrap:wrap;justify-content:center;}
-    .card {background:rgba(255,255,255,0.05);border-radius:8px;width:300px;margin:15px;padding:20px;text-align:left;transition:0.3s;}
-    .card:hover {background:rgba(255,255,255,0.15);}
-    .card img {width:100%;border-radius:6px;margin-bottom:12px;}
-    .card h2 {color:#fff;margin-bottom:10px;}
-    .card p {font-size:14px;color:#ddd;margin-bottom:10px;}
-    .card .rating {font-weight:bold;color:#1e90ff;}
-    .card .genre {font-size:13px;color:#ffcc00;font-weight:bold;margin-bottom:8px;}
-    .card a {display:inline-block;margin-top:10px;padding:8px 12px;background:#e50914;color:#fff;text-decoration:none;border-radius:4px;transition:0.3s;}
-    .card a:hover {background:#b20710;}
-    footer {text-align:center;padding:20px;background:#111;color:#aaa;margin-top:40px;}
-  </style>
+<meta charset="UTF-8">
+<title>Watch It</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f0f0f;
+    color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #111;
+}
+
+.logo {
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+}
+
+.search {
+    padding: 8px;
+    width: 200px;
+}
+
+.container {
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+}
+
+.card h3 {
+    font-size: 14px;
+    padding: 10px;
+}
+</style>
 </head>
+
 <body>
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="logo">Watch It List</div>
-    <div class="nav-links">
-      <a href="#movies">أفلام</a>
-      <a href="#series">مسلسلات</a>
-      <a href="#anime">أنمي</a>
-      <a href="#library" class="library-btn">المكتبة</a>
-      <div class="dropdown">
-        <a href="#">التصنيفات ▾</a>
-        <div class="dropdown-content">
-          <a href="#">رعب</a><a href="#">كوميديا</a><a href="#">أكشن</a><a href="#">خيال</a><a href="#">رومانسي</a>
-        </div>
-      </div>
-      <select id="lang"><option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option></select>
+<header>
+    <div class="logo">WATCH.IT</div>
+    <input type="text" class="search" placeholder="Search...">
+</header>
+
+<div class="container">
+    <div class="grid" id="movies"></div>
+</div>
+<script>
+const movies = [
+    {
+        title: "Avengers Endgame",
+        category: "movie",
+        image: "https://i.imgur.com/3JwZQ.jpg",
+        video: "https://www.youtube.com/embed/TcMBFSGVi1c"
+    },
+    {
+        title: "Breaking Bad",
+        category: "series",
+        image: "https://i.imgur.com/1bX5QH6.jpg",
+        video: "https://www.youtube.com/embed/HhesaQXLuRY"
+    },
+    {
+        title: "Attack on Titan",
+        category: "anime",
+        image: "https://i.imgur.com/z7J9E.jpg",
+        video: "https://www.youtube.com/embed/MGRm4IzK1SQ"
+    },
+    {
+        title: "Joker",
+        category: "movie",
+        image: "https://i.imgur.com/6X4F7.jpg",
+        video: "https://www.youtube.com/embed/zAGVQLHvwOY"
+    },
+    {
+        title: "Money Heist",
+        category: "series",
+        image: "https://i.imgur.com/9gkds.jpg",
+        video: "https://www.youtube.com/embed/hMANIarjT50"
+    },
+    {
+        title: "Demon Slayer",
+        category: "anime",
+        image: "https://i.imgur.com/xv3Rk.jpg",
+        video: "https://www.youtube.com/embed/VQGCKyvzIM4"
+    }
+];
+</script>
+<script>
+const container = document.getElementById("movies");
+
+function displayMovies(list) {
+    container.innerHTML = "";
+    list.forEach(movie => {
+        container.innerHTML += `
+            <div class="card" onclick="openPlayer('${movie.video}')">
+                <img src="${movie.image}">
+                <h3>${movie.title}</h3>
+            </div>
+        `;
+    });
+}
+
+displayMovies(movies);
+
+function openPlayer(video) {
+    document.getElementById("player").style.display = "flex";
+    document.getElementById("videoFrame").src = video;
+}
+
+function closePlayer() {
+    document.getElementById("player").style.display = "none";
+    document.getElementById("videoFrame").src = "";
+}
+</script>
+
+<!-- Popup Player -->
+<div id="player" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+z-index:1000;
+">
+
+    <div style="position:relative; width:80%; height:80%;">
+        <span onclick="closePlayer()" style="
+        position:absolute;
+        top:-30px;
+        right:0;
+        font-size:30px;
+        cursor:pointer;">✖</span>
+
+        <iframe id="videoFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
     </div>
-  </div>
 
-  <!-- Movies -->
-  <div class="library" id="movies">
-    <h1>الأفلام</h1>
-    <div class="cards">
-      <!-- مثال كارت مع صورة + التصنيف -->
-      <div class="card">
-        <img src="images/shawshank.jpg" alt="The Shawshank Redemption Poster">
-        <h2>The Shawshank Redemption</h2>
-        <p>قصة رجل يُسجن ظلمًا بتهمة قتل زوجته...</p>
-        <p class="genre">التصنيف: دراما</p>
-        <p class="rating">IMDb: 9.3/10</p>
-        <a href="https://www.youtube.com/watch?v=6hB3S9bIaco" target="_blank">شاهد التريلر</a>
-      </div>
-      <div class="card">
-        <img src="images/godfather.jpg" alt="The Godfather Poster">
-        <h2>The Godfather</h2>
-        <p>ملحمة عائلة كورليوني في عالم المافيا...</p>
-        <p class="genre">التصنيف: جريمة / دراما</p>
-        <p class="rating">IMDb: 9.2/10</p>
-        <a href="https://www.youtube.com/watch?v=sY1S34973zA" target="_blank">شاهد التريلر</a>
-      </div>
+</div>
+<style>
+.filters {
+    margin: 15px;
+}
 
-      <div class="card">
-        <img src="images/darkknight.jpg" alt="The Dark Knight Poster">
-        <h2>The Dark Knight</h2>
-        <p>باتمان يواجه الجوكر الذي يزرع الفوضى...</p>
-        <p class="genre">التصنيف: أكشن / جريمة</p>
-        <p class="rating">IMDb: 9.0/10</p>
-        <a href="https://www.youtube.com/watch?v=EXeTwQWrcwY" target="_blank">شاهد التريلر</a>
-      </div>
+.filters button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    background: red;
+    color: white;
+    border-radius: 5px;
+}
+</style>
 
-      <div class="card">
-        <img src="images/inception.jpg" alt="Inception Poster">
-        <h2>Inception</h2>
-        <p>قصة لص محترف يدخل عقول الآخرين عبر الأحلام...</p>
-        <p class="genre">التصنيف: خيال علمي / أكشن</p>
-        <p class="rating">IMDb: 8.8/10</p>
-        <a href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank">شاهد التريلر</a>
-      </div>
+<div class="filters">
+    <button onclick="filterMovies('all')">All</button>
+    <button onclick="filterMovies('movie')">Movies</button>
+    <button onclick="filterMovies('series')">Series</button>
+    <button onclick="filterMovies('anime')">Anime</button>
+</div>
 
-      <div class="card">
-        <img src="images/interstellar.jpg" alt="Interstellar Poster">
-        <h2>Interstellar</h2>
-        <p>رحلة مجموعة من رواد الفضاء عبر ثقب دودي...</p>
-        <p class="genre">التصنيف: خيال علمي / دراما</p>
-        <p class="rating">IMDb: 8.6/10</p>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank">شاهد التريلر</a>
-      </div>
+<script>
+// البحث
+document.querySelector(".search").addEventListener("input", function(e) {
+    const value = e.target.value.toLowerCase();
+    const filtered = movies.filter(m =>
+        m.title.toLowerCase().includes(value)
+    );
+    displayMovies(filtered);
+});
 
-      <div class="card">
-        <img src="images/pulpfiction.jpg" alt="Pulp Fiction Poster">
-        <h2>Pulp Fiction</h2>
-        <p>حكايات متشابكة عن الجريمة في لوس أنجلوس...</p>
-        <p class="genre">التصنيف: جريمة / كوميديا سوداء</p>
-        <p class="rating">IMDb: 8.9/10</p>
-        <a href="https://www.youtube.com/watch?v=s7EdQ4FqbhY" target="_blank">شاهد التريلر</a>
-      </div>
+// الفلترة
+function filterMovies(type) {
+    if (type === "all") {
+        displayMovies(movies);
+    } else {
+        const filtered = movies.filter(m => m.category === type);
+        displayMovies(filtered);
+    }
+}
+</script>
+<script>
+// ===== FAVORITES =====
+let favorites = JSON.parse(localStorage.getItem("fav")) || [];
 
-      <div class="card">
-        <img src="images/fightclub.jpg" alt="Fight Club Poster">
-        <h2>Fight Club</h2>
-        <p>رجل يعاني من الملل يلتقي بشخص غامض...</p>
-        <p class="genre">التصنيف: دراما / إثارة</p>
-        <p class="rating">IMDb: 8.8/10</p>
-        <a href="https://www.youtube.com/watch?v=SUXWAEX2jlg" target="_blank">شاهد التريلر</a>
-      </div>
+function toggleFav(title) {
+    if (favorites.includes(title)) {
+        favorites = favorites.filter(f => f !== title);
+    } else {
+        favorites.push(title);
+    }
+    localStorage.setItem("fav", JSON.stringify(favorites));
+    alert("Updated Favorites ❤️");
+}
 
-      <div class="card">
-        <img src="images/forrestgump.jpg" alt="Forrest Gump Poster">
-        <h2>Forrest Gump</h2>
-        <p>قصة رجل بسيط يعيش أحداثًا تاريخية كبرى...</p>
-        <p class="genre">التصنيف: دراما / رومانسي</p>
-        <p class="rating">IMDb: 8.8/10</p>
-        <a href="https://www.youtube.com/watch?v=bLvqoHBptjg" target="_blank">شاهد التريلر</a>
-      </div>
+// ===== RATING SYSTEM =====
+function rateMovie(name) {
+    let rate = prompt("Rate from 1 to 5 ⭐");
+    if (rate >= 1 && rate <= 5) {
+        alert(name + " rated " + rate + "⭐");
+    }
+}
 
-      <div class="card">
-        <img src="images/matrix.jpg" alt="The Matrix Poster">
-        <h2>The Matrix</h2>
-        <p>مغامرة نيون في عالم افتراضي يسيطر عليه الآلات...</p>
-        <p class="genre">التصنيف: خيال علمي / أكشن</p>
-        <p class="rating">IMDb: 8.7/10</p>
-        <a href="https://www.youtube.com/watch?v=vKQi3bBA1y8" target="_blank">شاهد التريلر</a>
-      </div>
+// تعديل العرض لإضافة أزرار
+function displayMovies(list) {
+    container.innerHTML = "";
+    list.forEach(movie => {
+        container.innerHTML += `
+            <div class="card">
+                <img src="${movie.image}" onclick="openPlayer('${movie.video}')">
+                <h3>${movie.title}</h3>
+                
+                <button onclick="toggleFav('${movie.title}')">❤️</button>
+                <button onclick="rateMovie('${movie.title}')">⭐</button>
+            </div>
+        `;
+    });
+}
 
-      <div class="card">
-        <img src="images/lotr.jpg" alt="The Lord of the Rings Poster">
-        <h2>The Lord of the Rings: Return of the King</h2>
-        <p>المعركة النهائية لإنقاذ الأرض الوسطى...</p>
-        <p class="genre">التصنيف: فانتازيا / مغامرة</p>
-        <p class="rating">IMDb: 9.0/10</p>
-        <a href="https://www.youtube.com/watch?v=r5X-hFf6Bwo" target="_blank">شاهد التريلر</a>
-      </div>
-    </div>
-  </div>
-  <!-- Series -->
-  <div class="library" id="series">
-    <h1>المسلسلات</h1>
-    <div class="cards">
+// ===== DARK MODE =====
+let dark = true;
 
-      <div class="card">
-        <img src="images/breakingbad.jpg" alt="Breaking Bad Poster">
-        <h2>Breaking Bad</h2>
-        <p>مدرس كيمياء يُصاب بالسرطان ويقرر تصنيع الميثامفيتامين...</p>
-        <p class="genre">التصنيف: جريمة / دراما</p>
-        <p class="rating">IMDb: 9.5/10</p>
-        <a href="https://www.youtube.com/watch?v=HhesaQXLuRY" target="_blank">شاهد التريلر</a>
-      </div>
+function toggleMode() {
+    if (dark) {
+        document.body.style.background = "#fff";
+        document.body.style.color = "#000";
+        dark = false;
+    } else {
+        document.body.style.background = "#0f0f0f";
+        document.body.style.color = "#fff";
+        dark = true;
+    }
+}
+</script>
 
-      <div class="card">
-        <img src="images/got.jpg" alt="Game of Thrones Poster">
-        <h2>Game of Thrones</h2>
-        <p>صراع العروش بين العائلات النبيلة في ويستروس...</p>
-        <p class="genre">التصنيف: فانتازيا / دراما</p>
-        <p class="rating">IMDb: 8.9/10</p>
-        <a href="https://www.youtube.com/watch?v=BpJYNVhGf1s" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/thewire.jpg" alt="The Wire Poster">
-        <h2>The Wire</h2>
-        <p>مسلسل جريمة واقعي يستعرض حياة الشرطة وتجار المخدرات...</p>
-        <p class="genre">التصنيف: جريمة / دراما</p>
-        <p class="rating">IMDb: 9.3/10</p>
-        <a href="https://www.youtube.com/watch?v=9qK-VGjMr8g" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/sopranos.jpg" alt="The Sopranos Poster">
-        <h2>The Sopranos</h2>
-        <p>قصة زعيم مافيا في نيوجيرسي يحاول التوفيق بين حياته...</p>
-        <p class="genre">التصنيف: جريمة / دراما</p>
-        <p class="rating">IMDb: 9.2/10</p>
-        <a href="https://www.youtube.com/watch?v=wrN2k3qGbVA" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/friends.jpg" alt="Friends Poster">
-        <h2>Friends</h2>
-        <p>مجموعة من الأصدقاء يعيشون في نيويورك...</p>
-        <p class="genre">التصنيف: كوميديا / رومانسي</p>
-        <p class="rating">IMDb: 8.9/10</p>
-        <a href="https://www.youtube.com/watch?v=hDNNmeeJs1Q" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/theoffice.jpg" alt="The Office Poster">
-        <h2>The Office</h2>
-        <p>كوميديا ساخرة عن حياة موظفي مكتب في شركة ورق...</p>
-        <p class="genre">التصنيف: كوميديا</p>
-        <p class="rating">IMDb: 8.9/10</p>
-        <a href="https://www.youtube.com/watch?v=Vmb1tqYqyII" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/sherlock.jpg" alt="Sherlock Poster">
-        <h2>Sherlock</h2>
-        <p>نسخة حديثة من مغامرات المحقق الشهير شرلوك هولمز...</p>
-        <p class="genre">التصنيف: جريمة / غموض</p>
-        <p class="rating">IMDb: 9.1/10</p>
-        <a href="https://www.youtube.com/watch?v=xK7S9mrFWL4" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/peakyblinders.jpg" alt="Peaky Blinders Poster">
-        <h2>Peaky Blinders</h2>
-        <p>عائلة شيلبي تدير عصابة في برمنغهام بعد الحرب العالمية الأولى...</p>
-        <p class="genre">التصنيف: جريمة / دراما</p>
-        <p class="rating">IMDb: 8.8/10</p>
-        <a href="https://www.youtube.com/watch?v=oVzVdvGIC7U" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/strangerthings.jpg" alt="Stranger Things Poster">
-        <h2>Stranger Things</h2>
-        <p>مجموعة أطفال يواجهون أحداثًا خارقة للطبيعة...</p>
-        <p class="genre">التصنيف: خيال علمي / رعب</p>
-        <p class="rating">IMDb: 8.7/10</p>
-        <a href="https://www.youtube.com/watch?v=b9EkMc79ZSU" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/arcane.jpg" alt="Arcane Poster">
-        <h2>Arcane</h2>
-        <p>مستوحى من لعبة League of Legends...</p>
-        <p class="genre">التصنيف: أنميشن / فانتازيا</p>
-        <p class="rating">IMDb: 9.0/10</p>
-        <a href="https://www.youtube.com/watch?v=fXmAurh012s" target="_blank">شاهد التريلر</a>
-      </div>
-
-    </div>
-  </div>
-  <!-- Anime -->
-  <div class="library" id="anime">
-    <h1>الأنمي</h1>
-    <div class="cards">
-
-      <div class="card">
-        <img src="images/fma.jpg" alt="Fullmetal Alchemist Poster">
-        <h2>Fullmetal Alchemist: Brotherhood</h2>
-        <p>الأخوان إدوارد وألفونس يستخدمان الكيمياء لاستعادة جسديهما...</p>
-        <p class="genre">التصنيف: أكشن / فانتازيا</p>
-        <p class="rating">MAL: 9.1/10</p>
-        <a href="https://www.youtube.com/watch?v=5vC6z0x8qFo" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/aot.jpg" alt="Attack on Titan Poster">
-        <h2>Attack on Titan</h2>
-        <p>البشر يعيشون خلف جدران لحمايتهم من العمالقة...</p>
-        <p class="genre">التصنيف: أكشن / رعب</p>
-        <p class="rating">MAL: 8.9/10</p>
-        <a href="https://www.youtube.com/watch?v=MGRm4IzK1SQ" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/deathnote.jpg" alt="Death Note Poster">
-        <h2>Death Note</h2>
-        <p>طالب يجد دفترًا يمنحه القدرة على قتل أي شخص...</p>
-        <p class="genre">التصنيف: غموض / إثارة</p>
-        <p class="rating">MAL: 8.6/10</p>
-        <a href="https://www.youtube.com/watch?v=NlJZ-YgAt-c" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/steinsgate.jpg" alt="Steins Gate Poster">
-        <h2>Steins;Gate</h2>
-        <p>مجموعة أصدقاء يكتشفون طريقة لإرسال رسائل إلى الماضي...</p>
-        <p class="genre">التصنيف: خيال علمي / دراما</p>
-        <p class="rating">MAL: 9.0/10</p>
-        <a href="https://www.youtube.com/watch?v=uMYhjVwp0Fc" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/hxh.jpg" alt="Hunter x Hunter Poster">
-        <h2>Hunter x Hunter</h2>
-        <p>غون فريكس يسعى ليصبح صيادًا محترفًا...</p>
-        <p class="genre">التصنيف: أكشن / مغامرة</p>
-        <p class="rating">MAL: 9.0/10</p>
-        <a href="https://www.youtube.com/watch?v=d6kBeJjTGnY" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/naruto.jpg" alt="Naruto Shippuden Poster">
-        <h2>Naruto Shippuden</h2>
-        <p>ناروتو يواصل سعيه ليصبح الهوكاجي ويحمي أصدقائه...</p>
-        <p class="genre">التصنيف: أكشن / فانتازيا</p>
-        <p class="rating">MAL: 8.2/10</p>
-        <a href="https://www.youtube.com/watch?v=QyYbvVAtlWk" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/onepiece.jpg" alt="One Piece Poster">
-        <h2>One Piece</h2>
-        <p>مونكي دي لوفي يسعى ليصبح ملك القراصنة...</p>
-        <p class="genre">التصنيف: أكشن / مغامرة</p>
-        <p class="rating">MAL: 8.7/10</p>
-        <a href="https://www.youtube.com/watch?v=85xI6WI0j2M" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/demonslayer.jpg" alt="Demon Slayer Poster">
-        <h2>Demon Slayer</h2>
-        <p>تانجيرو يقاتل الشياطين بعد أن قُتلت عائلته...</p>
-        <p class="genre">التصنيف: أكشن / فانتازيا</p>
-        <p class="rating">MAL: 8.6/10</p>
-        <a href="https://www.youtube.com/watch?v=VQGCKyvzIM4" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/jujutsu.jpg" alt="Jujutsu Kaisen Poster">
-        <h2>Jujutsu Kaisen</h2>
-        <p>إيتادوري يوجي يبتلع إصبع شيطان قوي...</p>
-        <p class="genre">التصنيف: أكشن / خيال</p>
-        <p class="rating">MAL: 8.6/10</p>
-        <a href="https://www.youtube.com/watch?v=pkKu9hLT-t8" target="_blank">شاهد التريلر</a>
-      </div>
-
-      <div class="card">
-        <img src="images/frieren.jpg" alt="Sousou no Frieren Poster">
-        <h2>Sousou no Frieren</h2>
-        <p>بعد هزيمة ملك الشياطين، تبدأ الساحرة فرييرين رحلة طويلة...</p>
-        <p class="genre">التصنيف: فانتازيا / دراما</p>
-        <p class="rating">MAL: 9.2/10</p>
-        <a href="https://www.youtube.com/watch?v=5c5Q3Y9rF6U" target="_blank">شاهد التريلر</a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Watch It List | Contact: a.r.sukuna001@gmail.com</p>
-  </footer>
+<button onclick="toggleMode()" style="
+position:fixed;
+bottom:20px;
+right:20px;
+padding:10px;
+border:none;
+background:red;
+color:white;
+border-radius:50%;
+cursor:pointer;
+">
+🌙
+</button>
 
 </body>
 </html>
