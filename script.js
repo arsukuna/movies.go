@@ -111,12 +111,15 @@ img:"https://image.tmdb.org/t/p/w500/uGBVj3b2hXOd9u1qV6P4s9b1G7K.jpg",
 desc_en:"Sorcerer learns magic.",
 desc_ar:"ساحر يتعلم السحر.",
 video:"https://www.youtube.com/embed/HSzx-zryEgM"},
-
+  
 {title:"Black Panther",type:"movie",year:2018,rating:7.3,
 img:"https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
 desc_en:"King of Wakanda.",
 desc_ar:"ملك واكاندا.",
-video:"https://www.youtube.com/embed/xjDjIWPwcPU"}
+video:"https://www.youtube.com/embed/xjDjIWPwcPU"
+},
+,
+  
 /* ===== SERIES (20) ===== */
 {title:"The Boys",type:"series",year:2019,rating:8.7,
 img:"https://image.tmdb.org/t/p/w500/7Ns6tO3aYjppI5bFhyYz0Dq2X.jpg",
