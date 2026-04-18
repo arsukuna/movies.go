@@ -111,13 +111,13 @@ img:"https://image.tmdb.org/t/p/w500/uGBVj3b2hXOd9u1qV6P4s9b1G7K.jpg",
 desc_en:"Sorcerer learns magic.",
 desc_ar:"ساحر يتعلم السحر.",
 video:"https://www.youtube.com/embed/HSzx-zryEgM"},
-  
+
 {title:"Black Panther",type:"movie",year:2018,rating:7.3,
 img:"https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
 desc_en:"King of Wakanda.",
 desc_ar:"ملك واكاندا.",
-video:"https://www.youtube.com/embed/xjDjIWPwcPU"
-},
+video:"https://www.youtube.com/embed/xjDjIWPwcPU"},
+
 /* ===== SERIES (20) ===== */
 {title:"The Boys",type:"series",year:2019,rating:8.7,
 img:"https://image.tmdb.org/t/p/w500/7Ns6tO3aYjppI5bFhyYz0Dq2X.jpg",
@@ -231,9 +231,10 @@ video:"https://www.youtube.com/embed/nW948Va-l10"},
 img:"https://image.tmdb.org/t/p/w500/fuKY6o5o5o5o5o5o5o5o5o.jpg",
 desc_en:"Marvel sitcom mystery.",
 desc_ar:"كوميديا غامضة من مارفل.",
-video:"https://www.youtube.com/embed/sj9J2ecsSpo"}
+video:"https://www.youtube.com/embed/sj9J2ecsSpo"},
+
 /* ===== ANIME (20) ===== */
-  {title:"Fullmetal Alchemist: Brotherhood",type:"anime",year:2009,rating:9.1,
+{title:"Fullmetal Alchemist: Brotherhood",type:"anime",year:2009,rating:9.1,
 img:"https://picsum.photos/seed/fma/500/750",
 desc_en:"Alchemy brothers seek Philosopher's Stone.",
 desc_ar:"الأخوان الكيميائيان يبحثان عن حجر الفيلسوف.",
@@ -352,9 +353,8 @@ img:"https://picsum.photos/seed/haikyuu/500/750",
 desc_en:"High school volleyball team.",
 desc_ar:"فريق كرة الطائرة في المدرسة.",
 video:"https://www.youtube.com/embed/tt8wE1zYfSg"}
+
 ];
-/* ================= DISPLAY FUNCTIONS ================= */
-const grid = document.getElementById("grid");
 
 function show(list){
   grid.innerHTML = "";
@@ -367,7 +367,6 @@ function show(list){
       </div>`;
   });
 }
-
 // عرض كل الأعمال عند بداية الموقع
 show(data);
 
