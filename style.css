@@ -1,1 +1,147 @@
+/* ===== RESET ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0b;
+  color: white;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #111;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.logo {
+  color: red;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.nav-links button,
+.login-btn,
+.lang-toggle {
+  background: none;
+  border: none;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.nav-links button:hover,
+.login-btn:hover,
+.lang-toggle:hover {
+  background: red;
+}
+
+.search {
+  padding: 6px;
+  border-radius: 5px;
+  border: none;
+  background: #222;
+  color: white;
+  outline: none;
+}
+
+/* ===== HERO ===== */
+.hero {
+  height: 320px;
+  background: url("https://image.tmdb.org/t/p/original/9PK6k.jpg") center/cover;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 32px;
+}
+
+/* ===== GRID ===== */
+.section {
+  padding: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card h4 {
+  margin: 5px;
+  font-size: 14px;
+}
+
+.card small {
+  color: #aaa;
+}
+
+/* ===== MODALS ===== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal-content input {
+  width: 90%;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  background: #333;
+  color: white;
+}
+
+.modal-content button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: red;
+}
 
