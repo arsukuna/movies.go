@@ -228,7 +228,8 @@ const translations = {
     anime: "Anime",
     favorites: "Favorites",
     hero: "Watch Movies, Series & Anime",
-    login: "Login"
+    login: "Login",
+    lang: "Language"
   },
   ar: {
     home: "الرئيسية",
@@ -237,18 +238,20 @@ const translations = {
     anime: "أنمي",
     favorites: "المفضلة",
     hero: "شاهد الأفلام والمسلسلات والأنمي",
-    login: "تسجيل الدخول"
+    login: "تسجيل الدخول",
+    lang: "اللغة"
   }
 };
 
 // تبديل اللغة
 function toggleLang(){
   currentLang = currentLang === "en" ? "ar" : "en";
+  localStorage.setItem("lang", currentLang); // حفظ اللغة
   updateTexts();
-  show(data); // إعادة عرض البيانات بالوصف المناسب
+  show(data);
 }
 
-// تحديث النصوص في الواجهة
+// تحديث النصوص
 function updateTexts(){
   document.querySelectorAll("[data-lang]").forEach(el=>{
     const key = el.getAttribute("data-lang");
@@ -256,5 +259,6 @@ function updateTexts(){
   });
 }
 
-// عند تحميل الصفحة، تحديث النصوص
+// عند تحميل الصفحة
+currentLang = localStorage.getItem("lang") || "en";
 updateTexts();
