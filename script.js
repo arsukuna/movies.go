@@ -242,23 +242,3 @@ const translations = {
     lang: "اللغة"
   }
 };
-
-// تبديل اللغة
-function toggleLang(){
-  currentLang = currentLang === "en" ? "ar" : "en";
-  localStorage.setItem("lang", currentLang); // حفظ اللغة
-  updateTexts();
-  show(data);
-}
-
-// تحديث النصوص
-function updateTexts(){
-  document.querySelectorAll("[data-lang]").forEach(el=>{
-    const key = el.getAttribute("data-lang");
-    el.innerText = translations[currentLang][key];
-  });
-}
-
-// عند تحميل الصفحة
-currentLang = localStorage.getItem("lang") || "en";
-updateTexts();
