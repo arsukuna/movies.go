@@ -118,8 +118,6 @@ desc_en:"King of Wakanda.",
 desc_ar:"ملك واكاندا.",
 video:"https://www.youtube.com/embed/xjDjIWPwcPU"
 },
-,
-  
 /* ===== SERIES (20) ===== */
 {title:"The Boys",type:"series",year:2019,rating:8.7,
 img:"https://image.tmdb.org/t/p/w500/7Ns6tO3aYjppI5bFhyYz0Dq2X.jpg",
