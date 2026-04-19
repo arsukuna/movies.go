@@ -492,8 +492,6 @@ window.openFavorites = function(){
   detailsModal.style.display = "flex";
 };
   
-let currentLang = "en";
-
 const translations = {
   en: {
     home: "Home",
